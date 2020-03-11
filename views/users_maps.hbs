@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Servidor Node</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<script src="http://blog.ikhuerta.com/jsDownload/dollar_get.js" type="text/javascript"></script>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/celulares">TESIS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="/reporte1" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reportes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href ="/reporte1">Reporte 1</a>
+        
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+        width: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+
+    </style>
+  </head>
+
+  <body >
+    <div style="height: 30px">   </div>
+<button style="margin-left: 30px" onclick="myFunction()" class="btn btn-success atraaa"  id="atras">Atrás</button>
+    
+<center> <h1>Mapa de Calor</h1>
+       </center>
+    
+    <p></p>
+    <table hidden  class="tabla-materiales" id="mytable2">
+        <thead>
+        <tr>
+            <th>Latitud</th>
+            <th>Longitud</th>
+           
+        </tr>
+        </thead>
+        <tbody>
+        {{#each results}}
+            <tr>
+                <td class="lat">{{ Latitud }}</td>
+                <td class="lon">{{ Longitud }}</td>
+                
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div id="map" ></div>    
+    <!-- GOOGLE API -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq4kyDhe3bUjbJMES1LlJ5FbjHgcxdc3w&libraries=visualization">
+    
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" >
+
+        
+/* Data points defined as an array of LatLng objects */
+
+ function   dd(){ 
+
+var materiales = [];
+
+document.querySelectorAll('.tabla-materiales tbody tr').forEach(function(e){
+  var fila = {
+    lat: e.querySelector('.lat').innerText,
+    lng: e.querySelector('.lon').innerText,
+  };
+    materiales.push( LatLngGen(fila) )
+});
+
+return materiales;
+
+   
+ }
+
+
+function LatLngGen(coordinate){ 
+  return new google.maps.LatLng(coordinate.lat, coordinate.lng);
+}
+
+var heatmapData = []
+
+//console.log(ss)
+//for (var i = 1000; i >= 0; i--) {  
+ // heatmapData.push( LatLngGen(createCoordinate(createCoordinate())) )
+//};
+
+var cdmx = dd().shift();
+
+map = new google.maps.Map(document.getElementById('map'), {
+  center: cdmx,
+  zoom: 14
+  //mapTypeId: 'satellite'
+});
+
+var heatmap = new google.maps.visualization.HeatmapLayer({
+  data: dd()
+});
+heatmap.setMap(map);
+heatmap.set('radius', heatmap.get('radius') ? null : 35);
+
+
+    </script>
+  </body>
+</html>
+
+<script>
+function myFunction() {
+    window.location="/reporte1";  
+} </script>
